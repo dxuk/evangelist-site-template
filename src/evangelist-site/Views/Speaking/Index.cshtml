@@ -1,0 +1,72 @@
+﻿@inject Microsoft.Extensions.Options.IOptions<PersonaliseOptions> opt
+@model evangelist_site.ViewModels.SpeakingViewModels.IndexViewModel
+
+@{
+    ViewData["Title"] = "Speaking";
+}
+
+<div class="jumbotron jumbotron-speaking">
+    <div class="container">
+        <h1>@ViewData["Title"]</h1>
+        <p>I speak at events of all sizes, it's pretty much my job.</p>
+        <p>Conferences, meet-ups, user groups, events.</p>
+    </div>
+</div>
+
+<div class="container-fluid green-background">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h2>I'll come to your event</h2>
+                <p>I speak at events such as conferences, meet-ups, user groups, Microsoft events etc.</p>
+                <p>If you want me to come to your event, please <a href="mailto:@(opt.Value.EmailAddress)?Subject=Enquiry%20from%20@(opt.Value.ShortName).me">email me</a> or <a href="@opt.Value.TwitterHome">tweet me</a> and we can sort the details.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid lightblue-background">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h2>My Talks</h2>
+                <p>Here are some of my past talks and also a few topics that I’m working on at the moment</p>
+                <ul>
+                    @foreach (var talk in Model.Talks)
+                    {
+                        <li><a href="/speaking/@talk.Url.ToLower()" title="@talk.Description" >@talk.Title</a></li>
+                    }
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid blue-background">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h2>My Bio</h2>
+                <p>Here is my bio in various formats:</p>
+                <ul>
+                    <li><strong>Third Person</strong>: @opt.Value.Bio.ThirdPerson</li>
+                    <li><strong>First Person</strong>: @opt.Value.Bio.FirstPerson</li>
+                    <li><strong>Short</strong>: @opt.Value.Bio.Short</li>
+                </ul>
+
+                <p>A few mug shots you can use to advertise your event</p>
+                <div class="row">
+                    <div class="col-md-3">
+                        <a href="~/images/Profile1.jpg" download><img src="~/images/Profile1.jpg" class="img-responsive profile-photo" alt="@opt.Value.ShortName profile picture 1"></a>
+                    </div>
+                    <div class="col-md-3">
+                        <a href="~/images/Profile2.jpg" download><img src="~/images/Profile2.jpg" class="img-responsive profile-photo" alt="@opt.Value.ShortName profile picture 2"></a>
+                    </div>
+                    <div class="col-md-3">
+                        <a href="~/images/Profile3.jpg" download><img src="~/images/Profile3.jpg" class="img-responsive profile-photo" alt="@opt.Value.ShortName profile picture 3"></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
